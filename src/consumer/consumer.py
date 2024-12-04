@@ -1,16 +1,15 @@
+import os
 from kafka import KafkaConsumer
-import json
+
+broker = os.getenv("KAFKA_BROKER", "localhost:9092")
+topic = os.getenv("KAFKA_TOPIC", "test-topic")
 
 consumer = KafkaConsumer(
-    "demo-topic",
-    bootstrap_servers="kafka.default.svc.cluster.local:9092",
-    value_deserializer=lambda m: json.loads(m.decode("utf-8")),
-    auto_offset_reset="earliest",
-    enable_auto_commit=True,
-    group_id="demo-group",
+    topic,
+    bootstrap_servers=broker,
+    auto_offset_reset='earliest',
+    enable_auto_commit=True
 )
 
-if __name__ == "__main__":
-    print("Starting Consumer...")
-    for message in consumer:
-        print(f"Consumed: {message.value}")
+for message in consumer:
+    print(f"Received: {message.value.decode('utf-8')}")
