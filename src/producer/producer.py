@@ -14,9 +14,8 @@ def main():
         producer.send(topic, value=message.encode('utf-8'))
         print(f"Sent: {message}")
         i += 1
-        time.sleep(1)  # Adjust rate as needed
+        time.sleep(1)
 
-    producer.flush()
 
 if __name__ == "__main__":
     main()
