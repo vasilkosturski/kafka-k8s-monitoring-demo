@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-producer
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+    spec:
+      containers:
+      - name: kafka-producer
+        image: vasilkosturski/kafka-k8s-monitoring-producer:latest
+        env:
+        - name: KAFKA_BROKER
+          value: "kafka.default.svc.cluster.local:9092"
+        - name: KAFKA_TOPIC
+          value: "test-topic"
+        - name: SASL_USERNAME
+          value: "user1"
+        - name: SASL_PASSWORD
+          value: "GrS1vePuhJ"
+        - name: SASL_MECHANISM
+          value: "SCRAM-SHA-256"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+    spec:
+      containers:
+      - name: kafka-consumer
+        image: vasilkosturski/kafka-k8s-monitoring-consumer:latest
+        env:
+        - name: KAFKA_BROKER
+          value: "kafka.default.svc.cluster.local:9092"
+        - name: KAFKA_TOPIC
+          value: "test-topic"
+        - name: SASL_USERNAME
+          value: "user1"
+        - name: SASL_PASSWORD
+          value: "GrS1vePuhJ"
+        - name: SASL_MECHANISM
+          value: "SCRAM-SHA-256"
