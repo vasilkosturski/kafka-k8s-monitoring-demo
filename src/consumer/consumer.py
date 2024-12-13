@@ -11,9 +11,8 @@ def main():
 
     consumer = KafkaConsumer(
         topic,
-        group_id=consumer_group,  # Set the consumer group
+        group_id=consumer_group,
         bootstrap_servers=broker,
-        auto_offset_reset="earliest",
         enable_auto_commit=True,
         sasl_mechanism=sasl_mechanism,
         security_protocol="SASL_PLAINTEXT",
