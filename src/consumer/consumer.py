@@ -2,12 +2,12 @@ from kafka import KafkaConsumer
 import os
 
 def main():
-    broker = os.getenv("KAFKA_BROKER", "localhost:9092")
-    topic = os.getenv("KAFKA_TOPIC", "test-topic")
-    sasl_username = os.getenv("SASL_USERNAME", "user1")
-    sasl_password = os.getenv("SASL_PASSWORD", "GrS1vePuhJ")
-    sasl_mechanism = os.getenv("SASL_MECHANISM", "SCRAM-SHA-256")
-    consumer_group = os.getenv("KAFKA_CONSUMER_GROUP", "demo-python-consumer-group")
+    broker = os.getenv("KAFKA_BROKER")
+    topic = os.getenv("KAFKA_TOPIC")
+    sasl_username = os.getenv("SASL_USERNAME")
+    sasl_password = os.getenv("SASL_PASSWORD")
+    sasl_mechanism = os.getenv("SASL_MECHANISM")
+    consumer_group = os.getenv("KAFKA_CONSUMER_GROUP")
 
     consumer = KafkaConsumer(
         topic,
