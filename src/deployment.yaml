@@ -57,3 +57,5 @@ spec:
           value: "GrS1vePuhJ"
         - name: SASL_MECHANISM
           value: "SCRAM-SHA-256"
+        - name: KAFKA_CONSUMER_GROUP
+          value: "demo-python-consumer-group"
