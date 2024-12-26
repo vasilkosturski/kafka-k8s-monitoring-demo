@@ -22,7 +22,6 @@ def main():
 
     print(f"Consumer started in group '{consumer_group}' consuming topic '{topic}'")
 
-    # Consume messages from the topic
     for message in consumer:
         print(f"Received: {message.value.decode('utf-8')}")
 

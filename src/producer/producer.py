@@ -5,14 +5,12 @@ from kafka import KafkaProducer
 
 
 def main():
-    # Load Kafka configuration from environment variables
-    broker = os.getenv("KAFKA_BROKER", "localhost:9092")
-    topic = os.getenv("KAFKA_TOPIC", "test-topic")
-    sasl_username = os.getenv("SASL_USERNAME", "user1")
-    sasl_password = os.getenv("SASL_PASSWORD", "GrS1vePuhJ")
-    sasl_mechanism = os.getenv("SASL_MECHANISM", "SCRAM-SHA-256")
+    broker = os.getenv("KAFKA_BROKER")
+    topic = os.getenv("KAFKA_TOPIC")
+    sasl_username = os.getenv("SASL_USERNAME")
+    sasl_password = os.getenv("SASL_PASSWORD")
+    sasl_mechanism = os.getenv("SASL_MECHANISM")
 
-    # Create Kafka producer with SASL authentication
     producer = KafkaProducer(
         bootstrap_servers=broker,
         sasl_mechanism=sasl_mechanism,
