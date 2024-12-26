@@ -1,5 +1,7 @@
 from kafka import KafkaConsumer
 import os
+import random
+import time
 
 def main():
     broker = os.getenv("KAFKA_BROKER")
@@ -7,7 +9,9 @@ def main():
     sasl_username = os.getenv("SASL_USERNAME")
     sasl_password = os.getenv("SASL_PASSWORD")
     sasl_mechanism = os.getenv("SASL_MECHANISM")
-    consumer_group = os.getenv("KAFKA_CONSUMER_GROUP")
+
+    consumer_groups = ["test-group-1", "test-group-2", "test-group-3"]
+    consumer_group = random.choice(consumer_groups)
 
     consumer = KafkaConsumer(
         topic,
@@ -20,10 +24,11 @@ def main():
         sasl_plain_password=sasl_password
     )
 
-    print(f"Consumer started in group '{consumer_group}' consuming topic '{topic}'")
+    print(f"Consumer in group '{consumer_group}' consuming topic '{topic}'")
 
     for message in consumer:
-        print(f"Received: {message.value.decode('utf-8')}")
+        print(f"Group {consumer_group} received: {message.value.decode('utf-8')}")
+        time.sleep(random.uniform(0.5, 2))
 
 if __name__ == "__main__":
     main()
