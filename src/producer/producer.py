@@ -1,7 +1,8 @@
-import os
-import time
-from datetime import datetime, timezone
 from kafka import KafkaProducer
+import os
+import random
+import time
+from datetime import datetime
 
 
 def main():
@@ -19,17 +20,16 @@ def main():
         sasl_plain_password=sasl_password
     )
 
-    i = 0
-    while True:
-        timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    event_types = ["INFO", "WARNING", "ERROR"]
 
-        message = f"Test message {i} | Timestamp: {timestamp}"
+    while True:
+        event_type = random.choice(event_types)
+        message = f"{event_type} | Event-{random.randint(1, 1000)} | {datetime.now().isoformat()}"
 
         producer.send(topic, value=message.encode('utf-8'))
-        print(f"Sent: {message}")
+        print(f"Produced: {message}")
 
-        i += 1
-        time.sleep(5)
+        time.sleep(random.uniform(0.2, 1.5))
 
 
 if __name__ == "__main__":
