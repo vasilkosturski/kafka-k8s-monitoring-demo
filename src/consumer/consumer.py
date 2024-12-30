@@ -9,9 +9,7 @@ def main():
     sasl_username = os.getenv("SASL_USERNAME")
     sasl_password = os.getenv("SASL_PASSWORD")
     sasl_mechanism = os.getenv("SASL_MECHANISM")
-
-    consumer_groups = ["test-group-1", "test-group-2", "test-group-3"]
-    consumer_group = random.choice(consumer_groups)
+    consumer_group = os.getenv("KAFKA_CONSUMER_GROUP")
 
     consumer = KafkaConsumer(
         topic,

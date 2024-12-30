@@ -32,16 +32,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafka-consumer
+  name: kafka-consumer-group-1
 spec:
-  replicas: 10
+  replicas: 3
   selector:
     matchLabels:
-      app: kafka-consumer
+      app: kafka-consumer-group-1
   template:
     metadata:
       labels:
-        app: kafka-consumer
+        app: kafka-consumer-group-1
     spec:
       containers:
       - name: consumer
@@ -51,6 +51,41 @@ spec:
           value: "kafka.default.svc.cluster.local:9092"
         - name: KAFKA_TOPIC
           value: "test-topic"
+        - name: KAFKA_CONSUMER_GROUP
+          value: "test-group-1"
+        - name: SASL_USERNAME
+          value: "user1"
+        - name: SASL_PASSWORD
+          value: "0JHtkTxH0r"
+        - name: SASL_MECHANISM
+          value: "SCRAM-SHA-256"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer-group-2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kafka-consumer-group-2
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer-group-2
+    spec:
+      containers:
+      - name: consumer
+        image: vasilkosturski/kafka-k8s-monitoring-consumer:latest
+        env:
+        - name: KAFKA_BROKER
+          value: "kafka.default.svc.cluster.local:9092"
+        - name: KAFKA_TOPIC
+          value: "test-topic"
+        - name: KAFKA_CONSUMER_GROUP
+          value: "test-group-2"
         - name: SASL_USERNAME
           value: "user1"
         - name: SASL_PASSWORD
