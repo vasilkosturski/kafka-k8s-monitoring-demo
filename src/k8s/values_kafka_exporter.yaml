@@ -1,0 +1,15 @@
+kafka:
+  server: kafka.default.svc.cluster.local:9092
+  kafkaServer:
+    - kafka.default.svc.cluster.local:9092
+
+sasl:
+  enabled: true
+  scram:
+    enabled: true
+    mechanism: scram-sha256
+    username: user1
+    password: 0JHtkTxH0r  # You may consider using a secret instead of hardcoding this
+
+extraFlags:
+  - --offset.show-all=true

@@ -1,0 +1,25 @@
+adminUser: admin
+adminPassword: admin123
+
+service:
+  type: NodePort
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.default.svc.cluster.local
+        access: proxy
+        isDefault: true
+        editable: false
+
+persistence:
+  enabled: true
+  type: pvc
+  accessModes:
+    - ReadWriteOnce
+  size: 500Mi  # Set persistence size to 500MB
+  storageClassName: ""  # Use the default storage class
+  annotations: {}

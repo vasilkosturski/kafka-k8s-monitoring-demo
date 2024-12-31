@@ -1,0 +1,6 @@
+sasl:
+  client:
+    users:
+      - user1
+    passwords:
+      - 0JHtkTxH0r
