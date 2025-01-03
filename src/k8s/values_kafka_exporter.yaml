@@ -9,7 +9,7 @@ sasl:
     enabled: true
     mechanism: scram-sha256
     username: user1
-    password: 0JHtkTxH0r  # You may consider using a secret instead of hardcoding this
+    password: 0JHtkTxH0r
 
 extraFlags:
   - --offset.show-all=true
