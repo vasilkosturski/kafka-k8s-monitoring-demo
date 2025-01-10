@@ -20,6 +20,6 @@ persistence:
   type: pvc
   accessModes:
     - ReadWriteOnce
-  size: 500Mi  # Set persistence size to 500MB
-  storageClassName: ""  # Use the default storage class
+  size: 500Mi
+  storageClassName: ""
   annotations: {}
