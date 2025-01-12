@@ -1,7 +1,5 @@
-kafka:
-  server: kafka.default.svc.cluster.local:9092
-  kafkaServer:
-    - kafka.default.svc.cluster.local:9092
+kafkaServer:
+  - "kafka.default.svc.cluster.local:9092"
 
 sasl:
   enabled: true
