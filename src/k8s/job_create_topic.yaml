@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-create-topic
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: kafka-topic-creator
+        image: docker.io/bitnami/kafka:3.9.0-debian-12-r4
+        command:
+          - /bin/bash
+          - -c
+          - |
+            echo "Creating Kafka topic..."
+            cat <<EOF > /tmp/client.properties
+            security.protocol=SASL_PLAINTEXT
+            sasl.mechanism=SCRAM-SHA-256
+            sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required \
+              username="user1" \
+              password="0JHtkTxH0r";
+            EOF
+
+            /opt/bitnami/kafka/bin/kafka-topics.sh --create \
+              --bootstrap-server kafka.default.svc.cluster.local:9092 \
+              --command-config /tmp/client.properties \
+              --replication-factor 1 \
+              --partitions 3 \
+              --topic test-topic
+
+            echo "Topic creation complete."
+      restartPolicy: OnFailure
