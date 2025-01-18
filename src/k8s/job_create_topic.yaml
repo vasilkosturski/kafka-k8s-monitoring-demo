@@ -29,5 +29,15 @@ spec:
               --partitions 3 \
               --topic test-topic
 
-            echo "Topic creation complete."
+            echo "Verifying Kafka topic..."
+            /opt/bitnami/kafka/bin/kafka-topics.sh --list \
+              --bootstrap-server kafka.default.svc.cluster.local:9092 \
+              --command-config /tmp/client.properties | grep -w "test-topic"
+
+            if [ $? -eq 0 ]; then
+              echo "Topic 'test-topic' successfully created and verified."
+            else
+              echo "Failed to verify the topic 'test-topic'. Exiting."
+              exit 1
+            fi
       restartPolicy: OnFailure
